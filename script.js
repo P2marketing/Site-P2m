@@ -76,21 +76,22 @@ animateElements.forEach(el => {
 });
 
 // Contador animado para estatísticas
-const animateCounter = (element, target, duration = 2000) => {
+const animateCounter = (element, target, duration = 2000, prefix = '') => {
     let start = 0;
     const increment = target / (duration / 16);
     const timer = setInterval(() => {
         start += increment;
         if (start >= target) {
-            element.textContent = formatNumber(target);
+            element.textContent = prefix + formatNumber(target);
             clearInterval(timer);
         } else {
-            element.textContent = formatNumber(Math.floor(start));
+            element.textContent = prefix + formatNumber(Math.floor(start));
         }
     }, 16);
 };
 
 const formatNumber = (num) => {
+    if (typeof num !== 'number' || isNaN(num)) return '0';
     if (num >= 1000000) {
         return (num / 1000000).toFixed(1) + 'M+';
     }
@@ -106,15 +107,21 @@ const heroStatsObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const statNumbers = entry.target.querySelectorAll('.stat-number');
             statNumbers.forEach(stat => {
-                const text = stat.textContent;
-                if (text.includes('M+')) {
-                    const num = parseFloat(text.replace('M+', '')) * 1000000;
-                    stat.textContent = 'R$ 0';
-                    setTimeout(() => animateCounter(stat, num), 200);
-                } else if (text.includes('+')) {
-                    const num = parseInt(text.replace('+', ''));
-                    stat.textContent = '0';
-                    setTimeout(() => animateCounter(stat, num), 200);
+                const text = (stat.textContent || '').trim();
+                const isRevenue = text.includes('R$');
+                const cleanText = text.replace(/\s*R\$\s*/g, '').replace(/[+\s]/g, '');
+                if (text.includes('M+') || text.includes('M')) {
+                    const num = parseFloat(cleanText.replace('M', '')) * 1000000;
+                    if (!isNaN(num)) {
+                        stat.textContent = isRevenue ? 'R$ 0' : '0';
+                        setTimeout(() => animateCounter(stat, num, 2000, isRevenue ? 'R$ ' : ''), 200);
+                    }
+                } else if (text.includes('+') || /^\d+$/.test(cleanText)) {
+                    const num = parseInt(cleanText.replace(/\D/g, ''), 10);
+                    if (!isNaN(num)) {
+                        stat.textContent = '0';
+                        setTimeout(() => animateCounter(stat, num, 2000, ''), 200);
+                    }
                 }
             });
             heroStatsObserver.unobserve(entry.target);
@@ -127,13 +134,16 @@ if (heroStats) {
     heroStatsObserver.observe(heroStats);
 }
 
-// Adicionar efeito parallax suave no hero
+// Efeito parallax suave no hero (sem sobrepor a próxima seção)
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const hero = document.querySelector('.hero');
     if (hero && scrolled < window.innerHeight) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-        hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+        // Movimento e opacidade suaves, limitados para não invadir a seção seguinte
+        const maxMove = 80;
+        const move = Math.min(scrolled * 0.15, maxMove);
+        hero.style.transform = `translateY(${move}px)`;
+        hero.style.opacity = Math.max(0.5, 1 - (scrolled / window.innerHeight) * 0.4);
     }
 });
 

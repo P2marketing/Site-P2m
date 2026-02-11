@@ -122,9 +122,12 @@ body {
 
 /* Hero Section */
 .hero {
+    position: relative;
+    z-index: 0;
     padding: calc(70px + var(--spacing-xl)) var(--spacing-md) var(--spacing-xl);
     background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
     text-align: center;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -275,6 +278,8 @@ section {
 
 /* Método TED Section */
 .metodo-section {
+    position: relative;
+    z-index: 1;
     background: var(--color-bg);
 }
 
