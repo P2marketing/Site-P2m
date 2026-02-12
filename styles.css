@@ -286,6 +286,45 @@ section {
     line-height: 1.7;
 }
 
+/* O que fazemos */
+.o-que-fazemos-section {
+    background: var(--color-bg-light);
+}
+
+.o-que-fazemos-list {
+    list-style: none;
+    max-width: 560px;
+    margin: 0 auto var(--spacing-md);
+    padding: 0;
+    font-size: 1.15rem;
+    color: var(--color-text);
+    line-height: 2;
+}
+
+.o-que-fazemos-list li {
+    padding-left: 2rem;
+    position: relative;
+}
+
+.o-que-fazemos-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.o-que-fazemos-tagline {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+}
+
+.results-intro {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
 /* Método TED Section */
 .metodo-section {
     position: relative;
@@ -437,6 +476,10 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--spacing-md);
+}
+
+.beneficios-grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .beneficio-item {
