@@ -696,22 +696,25 @@ section {
 }
 
 .beneficio-item {
-    display: flex;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--spacing-md);
+    row-gap: 0.35rem;
+    padding: 1.4rem var(--spacing-md);
+    border-radius: 1rem;
     transition: var(--transition);
 }
 
 .beneficio-item:hover {
-    background: var(--color-bg-light);
-    transform: translateX(5px);
+    background: rgba(15, 23, 42, 0.85);
+    transform: translateY(-2px);
 }
 
 .beneficio-icon {
     width: 40px;
     height: 40px;
-    background: var(--color-primary);
+    background: linear-gradient(to bottom right, #4f46e5, #ec4899);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -720,18 +723,26 @@ section {
     font-size: 1.2rem;
     font-weight: 700;
     flex-shrink: 0;
+    grid-row: 1 / 3;
 }
 
 .beneficio-item h3 {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    color: var(--color-primary);
-    margin-bottom: 0.5rem;
+    color: #f9fafb;
+    margin: 0;
+    line-height: 1.3;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
 }
 
 .beneficio-item p {
-    color: var(--color-text-light);
-    line-height: 1.6;
+    font-size: 0.95rem;
+    color: #9ca3af;
+    line-height: 1.5;
+    margin: 0;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
 }
 
 /* Sobre Section */
@@ -1159,6 +1170,144 @@ section {
     .footer {
         padding-left: max(var(--spacing-md), env(safe-area-inset-left));
         padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+    }
+}
+
+/* Dark theme site-wide overrides (aplica o conceito do hero em todo o site) */
+body {
+    background: #030303;
+    color: #e5e7eb;
+}
+
+.header {
+    background: rgba(3, 3, 3, 0.9);
+    border-bottom-color: rgba(148, 163, 184, 0.4);
+}
+
+.nav-menu a {
+    color: rgba(249, 250, 251, 0.88);
+}
+
+.nav-menu a:hover {
+    color: #ffffff;
+}
+
+.section-tag {
+    background: rgba(15, 23, 42, 0.8);
+    color: #9ca3af;
+}
+
+.section-title {
+    color: #f9fafb;
+}
+
+.section-description,
+.o-que-fazemos-tagline {
+    color: #9ca3af;
+}
+
+.o-que-fazemos-section,
+.metodo-section,
+.prova-social-section,
+.beneficios-section,
+.sobre-section {
+    background:
+        radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(244, 63, 94, 0.14), transparent 55%),
+        #030303;
+}
+
+.o-que-fazemos-list {
+    color: #e5e7eb;
+}
+
+.o-que-fazemos-list li::before {
+    color: #a5b4fc;
+}
+
+.metodo-card,
+.testimonial-card,
+.result-item,
+.sobre-stat {
+    background: rgba(15, 23, 42, 0.85);
+    border-color: rgba(148, 163, 184, 0.35);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.65);
+}
+
+.metodo-card p,
+.testimonial-text,
+.result-label,
+.sobre-text p,
+.sobre-stat-label,
+.author-info span {
+    color: #9ca3af;
+}
+
+.metodo-card h3,
+.result-number,
+.author-info strong,
+.sobre-stat-number,
+.beneficio-item h3 {
+    color: #f9fafb;
+}
+
+.results-showcase {
+    margin-top: var(--spacing-lg);
+}
+
+.beneficios-section {
+    background: linear-gradient(to bottom, #020617, #030712);
+}
+
+.beneficio-item {
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.beneficio-item:hover {
+    background: rgba(15, 23, 42, 0.85);
+}
+
+.beneficio-item p {
+    color: #9ca3af;
+}
+
+.beneficio-icon {
+    background: linear-gradient(to bottom right, #4f46e5, #ec4899);
+}
+
+.sobre-section {
+    color: #e5e7eb;
+}
+
+.sobre-text strong {
+    color: #e5e7eb;
+}
+
+.cta-section {
+    background:
+        radial-gradient(circle at top center, rgba(79, 70, 229, 0.45), transparent 55%),
+        #020617;
+}
+
+.cta-description,
+.cta-note {
+    color: #cbd5f5;
+}
+
+.footer {
+    background: #020617;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        background: #030303;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .nav-menu a {
+        color: rgba(249, 250, 251, 0.9);
     }
 }
 
