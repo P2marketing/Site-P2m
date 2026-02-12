@@ -135,12 +135,12 @@ if (heroStats) {
     heroStatsObserver.observe(heroStats);
 }
 
-// Efeito parallax suave no hero (sem sobrepor a próxima seção)
+// Efeito parallax suave no hero (sem sobrepor a próxima seção) — desativado no hero-shape
 window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
     const hero = document.querySelector('.hero');
+    if (hero && hero.classList.contains('hero-shape')) return;
+    const scrolled = window.pageYOffset;
     if (hero && scrolled < window.innerHeight) {
-        // Movimento e opacidade suaves, limitados para não invadir a seção seguinte
         const maxMove = 80;
         const move = Math.min(scrolled * 0.15, maxMove);
         hero.style.transform = `translateY(${move}px)`;
